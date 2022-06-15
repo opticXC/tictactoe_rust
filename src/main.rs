@@ -16,10 +16,10 @@ fn main(){
     unsafe{
 
         while TURN <=9 {  //main loop
-            
-            TURN +=1;
             update();
+            TURN +=1;
         }
+        println!("Its a Draw");
     }
 }
 
@@ -52,9 +52,7 @@ fn gridup(){ //prints grid to std::out
         }
     }
 
-    unsafe { if TURN %2 !=0{println!("player 1(X) 's Turn")}else {
-        println!("player 2(Y)'s Turn");
-    } }
+    
 
     println!("{} ", &line1.to_string());
     println!("{} ", &breaker.to_string());
@@ -67,7 +65,14 @@ fn gridup(){ //prints grid to std::out
 
 
 fn get_up(){  //takes user input to replace 1 grid value (RECURSIVE)
+    unsafe { if TURN %2 !=0{println!("player 1(O) 's Turn")}else {
+        println!("player 2(X)'s Turn");
+
+    } }
+    println!("enter a number in the valid range");
     let inp:i32 = read!();
+    
+    
     let input:usize =(inp -1).try_into().unwrap();
 
     
