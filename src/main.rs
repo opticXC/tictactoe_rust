@@ -141,8 +141,20 @@ fn chech_win(){
         exit();
     }else if GRID[6] == GRID[7] && GRID[7] == GRID[8] {
         exit();
+
+    //vertical line checks
+    }else if GRID[0] == GRID[3] && GRID[3] == GRID[6] {
+        exit();
+    }else if GRID[1] == GRID[4] && GRID[4] == GRID[7] {
+        exit()
+    }else if GRID[2] == GRID[5] && GRID[5] == GRID[8] {
+        exit();
+    
+
     //diagonal line checks
     }else if GRID[0] == GRID[4]&& GRID[4] == GRID[8] {
+        exit();
+    }else if GRID[2] == GRID[4] && GRID[4] == GRID[6]{
         exit();
     }
 }
