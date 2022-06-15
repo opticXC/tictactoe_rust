@@ -11,11 +11,11 @@ static mut GRID_C:Vec<i32> = Vec::new() ;
 static mut TURN: i32 = 1;
 
 fn main(){
-    grid_set();
-    gridup();
+    grid_set(); //initialise grids
+    gridup();   //print grid to terminal
     unsafe{
 
-        while TURN <=9 {
+        while TURN <=9 {  //main loop
             
             TURN +=1;
             update();
@@ -23,21 +23,21 @@ fn main(){
     }
 }
 
-fn update(){
+fn update(){ //runs function in order everytime ~~probably could have done this in main loop instead of creating a function ~~
     
     get_up();
     gridup();
     chech_win();
 }
 
-fn gridup(){
+fn gridup(){ //prints grid to std::out 
     let mut line1:String = String::new();
     let mut line2:String = String::new();
     let mut line3:String = String::new();
 
-    let breaker: String = "---------".to_string();
-
-    unsafe {
+    let breaker: String = "-------".to_string();
+    
+    unsafe {  //appending grid values to strings CUZ NO MULTIPLE AREGUMENTS IN PRINT STATEMENT??????? => i didnt know u could do it when i created this . mb
         for i in [0,1,2,3,4,5,6,7,8] {
             if i <=2{
                 line1.push_str(&GRID[i].to_string() );
@@ -52,7 +52,9 @@ fn gridup(){
         }
     }
 
-    unsafe {println!("\n Turn number : {} \n", TURN );}
+    unsafe { if TURN %2 !=0{println!("player 1(X) 's Turn")}else {
+        println!("player 2(Y)'s Turn");
+    } }
 
     println!("{} ", &line1.to_string());
     println!("{} ", &breaker.to_string());
@@ -64,7 +66,7 @@ fn gridup(){
 }
 
 
-fn get_up(){
+fn get_up(){  //takes user input to replace 1 grid value (RECURSIVE)
     let inp:i32 = read!();
     let input:usize =(inp -1).try_into().unwrap();
 
@@ -103,7 +105,7 @@ fn get_up(){
 
 
 
-fn grid_set(){
+fn grid_set(){ //1st function to run ( sets up the initial vector grids)
     let mut i:i32 = 1;
     while i <=9{
         unsafe{
@@ -116,6 +118,32 @@ fn grid_set(){
 
 }
 
+fn exit(){ //exit program after printing winner
+    unsafe{
+    if TURN %2 ==0 {
+
+        println!("player 1 (X) has won " );
+        std::process::exit(0);
+    }else {
+        println!("player 2 (O) has won " );
+        std::process::exit(0);
+    }
+}
+}
+
+
 fn chech_win(){
-    
+    unsafe {
+    //horizontal line checks
+    if GRID[0] == GRID[1] && GRID[1] == GRID[2]{
+        exit();
+    }else if GRID[3] == GRID[4] && GRID[4] == GRID[5] {
+        exit();
+    }else if GRID[6] == GRID[7] && GRID[7] == GRID[8] {
+        exit();
+    //diagonal line checks
+    }else if GRID[0] == GRID[4]&& GRID[4] == GRID[8] {
+        exit();
+    }
+}
 }
